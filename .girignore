@@ -1,0 +1,33 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Environment variables
+.env
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Build outputs
+dist/
+build/
+
+# IDEs and editors
+.vscode/
+.idea/
+
+# Coverage reports
+coverage/
+
+# MongoDB data files
+*.pid
+*.seed
+
+# Misc
+*.bak
+*.tmp

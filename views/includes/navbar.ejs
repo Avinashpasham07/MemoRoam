@@ -1,0 +1,120 @@
+<style>
+   .search-form {
+        position: relative;
+        transition: all 0.3s ease;
+    }
+  
+    .btn-search {
+        background: linear-gradient(135deg, #ff5733 0%, #e84118 100%);
+        color: white;
+        border-radius: 25px;
+        padding: 0 1.5rem;
+        border: none;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 6px rgba(255, 87, 51, 0.2);
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn-search:hover {
+        background: linear-gradient(135deg, #e84118 0%, #c23616 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 8px rgba(255, 87, 51, 0.3);
+    }
+
+    .btn-search:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(180, 177, 177, 0.2);
+    }
+
+    .btn-search i {
+        display: inline-flex;
+        margin-right: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .search-bar {
+        border-radius: 25px;
+        border: 1px solid rgba(255, 87, 51, 0.3);
+        padding: 0.6rem 1.2rem;
+        font-size: 15px;
+        width: 220px;
+        transition: all 0.3s ease;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .search-bar:focus {
+        outline: none;
+        border-color: #ff5733;
+        box-shadow: 0 0 0 3px rgba(255, 87, 51, 0.2);
+        width: 250px;
+    }
+
+    .search-text {
+        transition: all 0.3s ease;
+    }
+
+    @media (max-width: 768px) {
+        .search-bar {
+            width: 160px;
+        }
+        
+        .search-bar:focus {
+            width: 180px;
+        }
+        
+        .search-text {
+            display: none;
+        }
+        
+        .btn-search i {
+            margin-right: 0;
+        }
+    }
+
+    /* Animation for search icon */
+    .btn-search:hover i {
+        transform: scale(1.1);
+    }
+</style>
+
+
+<nav class="navbar navbar-expand-md bg-body-tertiary border-bottom sticky-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/listing"><b><i class="fa-regular fa-compass"></i>  MemoRoam.</b></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <!-- <div class="navbar-nav">
+          <a class="nav-link" href="/listing"><b>Explore</b></a>
+        </div> -->
+        <div class="navbar-nav ms-auto">
+    <form class="d-flex" role="search" action="/listing" method="GET">
+    <input class="form-control me-2 search-bar" 
+           type="search" 
+           name="q"
+           placeholder="Search Destinations"
+           value="<%= locals.searchQuery || '' %>"/>
+    <button class="btn btn-search" type="submit">
+        <i class="fa-solid fa-magnifying-glass"></i> Search
+    </button>
+</form>
+</div>
+          <div class="navbar-nav ms-auto">
+             <a class="nav-link" href="/listing/new">Add Your Home</a>
+            <% if(!currentUser){ %>
+            <a class="nav-link " aria-current="page" href="/signup"><b>Signup</b></a>
+            <a class="nav-link" href="/login"><b>Log in</b></a>
+            <% }%>
+            <% if(currentUser){ %>
+            <a class="nav-link" href="/logout"><b>Log out</b></a>
+            <% }%>
+          </div>
+      </div>
+    </div>
+  </nav>

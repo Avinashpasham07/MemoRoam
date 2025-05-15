@@ -1,0 +1,109 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="error-container">
+  <div class="error-content">
+    <div class="error-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+      </svg>
+    </div>
+    <h1 class="error-title">Error <%= err.status || 500 %></h1>
+    <p class="error-message"><%= err.message %></p>
+    
+    <% if (process.env.NODE_ENV === 'development') { %>
+      <div class="error-details">
+        <h3>Error Details:</h3>
+        <pre><code><%= JSON.stringify(err, null, 2) %></code></pre>
+      </div>
+    <% } %>
+
+    <div class="error-actions">
+      <a href="/listing" class="btn btn-primary">Return Home</a>
+      <a href="javascript:history.back()" class="btn btn-secondary">Go Back</a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 2rem;
+    background-color: #f8f9fa;
+  }
+
+  .error-content {
+    max-width: 600px;
+    text-align: center;
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .error-icon {
+    color: #dc3545;
+    margin-bottom: 1.5rem;
+  }
+
+  .error-title {
+    color: #dc3545;
+    margin-bottom: 1rem;
+    font-size: 2.5rem;
+  }
+
+  .error-message {
+    color: #6c757d;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .error-details {
+    margin: 2rem 0;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 4px;
+    text-align: left;
+  }
+
+  .error-details pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin: 0;
+  }
+
+  .error-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background-color: #0069d9;
+  }
+
+  .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+  }
+
+  .btn-secondary:hover {
+    background-color: #5a6268;
+  }
+</style>

@@ -1,0 +1,193 @@
+<% layout('layouts/boilerplate') %>
+<!-- <div class="container-fluid py-4 edit-listing-page"> -->
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-10 col-xl-8 px-3 px-md-4"> <!-- Adjusted width constraints -->
+      <div class="edit-header text-center mb-4">
+        <h2 class="display-5 fw-bold text-primary heading">
+          <i class="fas fa-edit me-2"></i>Edit Your Listing
+        </h2>
+        <p class="lead text-muted">Update your property details to attract more travelers</p>
+      </div>
+      <hr>
+      <br>
+
+      <% if (list) { %>
+      <form method="post" action="/listing/<%= list._id %>?_method=PUT" novalidate class="needs-validation" enctype="multipart/form-data">
+        
+        <!-- Basic Information Section -->
+        <div class="mb-4 form-section">
+          <h5 class="section-title mb-3">
+            <i class="fas fa-info-circle me-2"></i>Basic Information
+          </h5>
+          
+          <div class="mb-3">
+            <label for="title" class="form-label fw-bold">Listing Title</label>
+            <input type="text" name="listing[title]" value="<%= list.title %>" 
+                   class="form-control form-control-lg" 
+                   placeholder="Beautiful beachfront villa" required>
+            <div class="invalid-feedback">Please provide a title for your listing</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="description" class="form-label fw-bold">Description</label>
+            <textarea name="listing[description]" class="form-control" rows="4" required><%= list.description %></textarea>
+            <div class="invalid-feedback">Please describe your property</div>
+          </div>
+        </div>
+
+        <!-- Image Section -->
+        <div class="mb-4 form-section">
+          <h5 class="section-title mb-3">
+            <i class="fas fa-image me-2"></i>Property Image
+          </h5>
+          
+          <div class="mb-3">
+            <label class="form-label fw-bold d-block">Current Image</label>
+            <div class="current-image-container">
+              <img src="<%= list.image.url %>" class="img-fluid rounded-3 border" alt="Current listing image">
+              <div class="current-image-label">Current Image</div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="img" class="form-label fw-bold">Update Image</label>
+            <div class="file-upload-area">
+              <input type="file" name="listing[image]" class="form-control">
+              <small class="text-muted">Recommended: JPG/PNG, 1200×800 pixels or larger</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pricing & Location -->
+        <div class="row g-3 mb-4 form-section">
+          <div class="col-md-6 mb-3">
+            <h5 class="section-title mb-3">
+              <i class="fas fa-tag me-2"></i>Pricing
+            </h5>
+            <label for="price" class="form-label fw-bold">Price per night (₹)</label>
+            <div class="input-group">
+              <span class="input-group-text bg-light">₹</span>
+              <input type="number" name="listing[price]" value="<%= list.price %>" 
+                     class="form-control" placeholder="2000" required>
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <h5 class="section-title mb-3">
+              <i class="fas fa-map-marker-alt me-2"></i>Location
+            </h5>
+            <label for="country" class="form-label fw-bold">Country</label>
+            <input type="text" name="listing[country]" value="<%= list.country %>" 
+                   class="form-control" placeholder="Country" required>
+            
+            <label for="location" class="form-label fw-bold mt-2">City/Area</label>
+            <input type="text" name="listing[location]" value="<%= list.location %>" 
+                   class="form-control" placeholder="City or specific area" required>
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="d-flex justify-content-between mt-4 pt-3 border-top">
+          <a href="/listing/<%= list._id %>" class="btn btn-outline-secondary px-4">
+            <i class="fas fa-times me-2"></i>Cancel
+          </a>
+          <button type="submit" class="btn btn-primary px-4">
+            <i class="fas fa-save me-2"></i>Save Changes
+          </button>
+        </div>
+      </form>
+      <% } else { %>
+        <div class="alert alert-danger text-center">
+          <i class="fas fa-exclamation-circle me-2"></i>Listing not found
+        </div>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<style>
+
+  .edit-listing-page {
+    background-color: #f8f9fa;
+    min-height: calc(100vh - 56px);
+  }
+  
+  .edit-header {
+    max-width: 800px;
+    margin: 0 auto 2rem;
+  }
+  
+  form {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+  
+  .form-section {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .form-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+  
+  .section-title {
+    color: #2c3e50;
+    font-size: 1.1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #f0f0f0;
+  }
+  
+  .current-image-container {
+    position: relative;
+    width: 100%;
+    max-height: 400px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+  
+  .current-image-container img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .current-image-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 8px;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+  
+  .file-upload-area {
+    border: 2px dashed #dee2e6;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  
+  .file-upload-area:hover {
+    border-color: #4A6FA5;
+    background-color: #f8faff;
+  }
+  
+  @media (max-width: 768px) {
+    form {
+      padding: 1.5rem;
+    }
+    
+    .edit-header h2 {
+      font-size: 1.8rem;
+    }
+  }
+</style>

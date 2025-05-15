@@ -1,0 +1,299 @@
+<% layout('layouts/boilerplate') %>
+<script>
+  const address = "<%= list.location %>, <%= list.country %>";
+</script>
+<script src="/js/map.js"></script>
+
+<div class="container-fluid px-0">
+  <!-- Hero Image Section - Full Width -->
+  <div class="hero-container position-relative">
+    <img src="<%= list.image.url ? list.image.url : 'https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80' %>" 
+         class="hero-image w-100" 
+         alt="<%= list.title %>">
+    <div class="hero-overlay d-flex flex-column justify-content-center align-items-start">
+      <h1 class="hero-title text-white"><%= list.title %></h1>
+      <p class="hero-location text-white">
+        <i class="fas fa-map-marker-alt"></i> <%= list.location %>, <%= list.country %>
+      </p>
+    </div>
+  </div>
+
+  <!-- Main Content Section -->
+  <div class="container mt-4" style="max-width: 1600px;">
+    <div class="row">
+      <!-- Left Column - Listing Details -->
+      <div class="col-lg-8">
+        <!-- Listing Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div>
+            <h2 class="listing-title"><%= list.title %></h2>
+            <div class="d-flex align-items-center">
+              <span class="badge bg-primary me-2"><%= list.category %></span>
+              <span class="text-muted">
+                <i class="fas fa-user"></i> Hosted by <%= list.owner.username %>
+              </span>
+            </div>
+          </div>
+          <div class="text-end">
+            <h3 class="price mb-0">₹<%= list.price.toLocaleString("en-IN") %></h3>
+            <small class="text-muted">per night</small>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="card mb-4 border-0 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title section-title">
+              <i class="fas fa-align-left me-2"></i>Description
+            </h5>
+            <p class="card-text"><%= list.description %></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column - Owner Actions/Booking -->
+      <div class="col-lg-4">
+        <div class="sticky-sidebar">
+          <div class="card border-0 shadow-sm">
+            <div class="card-body">
+              <% if(currentUser && list.owner._id.equals(currentUser._id)) { %>
+                <h5 class="card-title mb-4">Manage Your Listing</h5>
+                <div class="d-grid gap-2">
+                  <a href="/listing/<%= list._id %>/edit" class="btn btn-warning">
+                    <i class="fas fa-edit me-2"></i>Edit Listing
+                  </a>
+                  <form method="post" action="/listing/<%= list._id %>?_method=DELETE">
+                    <button type="submit" class="btn btn-danger w-100">
+                      <i class="fas fa-trash me-2"></i>Delete Listing
+                    </button>
+                  </form>
+                </div>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Location Section - Full Width -->
+    <div class="row mt-4 w-100">
+      <div class="col-12 px-0">
+        <div class="location-container">
+          <h5 class="section-title px-4">
+            <i class="fas fa-map-marked-alt me-2"></i>Location
+          </h5>
+          <div class="row mx-0 w-75">
+            <div class="col-md-6 px-4 py-3">
+              <p><i class="fas fa-map-marker-alt text-primary me-2"></i> <%= list.location %></p>
+              <p><i class="fas fa-globe text-primary me-2"></i> <%= list.country %></p>
+            </div>
+            <div class="col-md-6 px-0">
+              <div id="map" style="height: 400px; width: 100%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reviews Section -->
+    <div class="row mt-4">
+      <div class="col-lg-8">
+        <div class="card mb-4 border-0 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title section-title d-flex justify-content-between align-items-center">
+              <span><i class="fas fa-star me-2"></i>Reviews</span>
+              <% if (list.reviews.length > 0) { %>
+                <span class="badge bg-secondary"><%= list.reviews.length %> reviews</span>
+              <% } %>
+            </h5>
+
+            <% if (list.reviews.length > 0) { %>
+              <div class="reviews-container">
+                <% for (let review of list.reviews) { %>
+                  <div class="review-item mb-3 pb-3 border-bottom">
+                    <div class="d-flex justify-content-between">
+                      <h6 class="review-author">@<%= review.author.username %></h6>
+                      <div class="starability-result" data-rating="<%= review.rating %>"></div>
+                    </div>
+                    <p class="review-text mt-2"><%= review.comment %></p>
+                    <% if (currentUser && review.author.equals(currentUser._id)) { %>
+                      <form method="post" action="/listing/<%= list._id %>/reviews/<%= review._id %>?_method=DELETE">
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                      </form>
+                    <% } %>
+                  </div>
+                <% } %>
+              </div>
+            <% } else { %>
+              <p class="text-muted">No reviews yet. Be the first to review!</p>
+            <% } %>
+
+            <% if(currentUser) { %>
+              <div class="mt-4">
+                <h6>Leave your review</h6>
+                <form action="/listing/<%= list._id %>/reviews" method="POST" novalidate class="needs-validation">
+                  <div class="mb-3">
+                    <label class="form-label">Rating</label>
+                    <fieldset class="starability-slot">
+                      <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+                      <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                      <label for="first-rate1" title="Terrible">1 star</label>
+                      <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                      <label for="first-rate2" title="Not good">2 stars</label>
+                      <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                      <label for="first-rate3" title="Average">3 stars</label>
+                      <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                      <label for="first-rate4" title="Very good">4 stars</label>
+                      <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                      <label for="first-rate5" title="Amazing">5 stars</label>
+                    </fieldset>
+                  </div>
+                  <div class="mb-3">
+                    <label for="comment" class="form-label">Comment</label>
+                    <textarea name="review[comment]" id="comment" rows="3" class="form-control" required></textarea>
+                    <div class="invalid-feedback">Please share your experience</div>
+                  </div>
+                  <button class="btn btn-primary">Submit Review</button>
+                </form>
+              </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Custom Styles */
+  .hero-container {
+    height: 60vh;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+  }
+  
+  .hero-image {
+    height: 100%;
+    object-fit: fill;
+    filter: brightness(0.7);
+    width: 100%;
+    border-radius: 10px;
+  }
+  
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0 5%;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+  }
+  
+  .hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  }
+  
+  .hero-location {
+    font-size: 1.5rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  }
+  
+  .listing-title {
+    font-weight: 600;
+    color: #333;
+    font-size: 2.2rem;
+  }
+  
+  .price {
+    color:  #ff5733;
+    font-weight: 700;
+    font-size: 2rem;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+    color: #333;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #f0f0f0;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Location Section Styles */
+  .location-container {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  #map {
+    height: 400px;
+    width: 100%;
+  }
+  
+  /* Sticky Sidebar Fix */
+  .sticky-sidebar {
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+  }
+  
+  .review-item {
+    transition: all 0.3s ease;
+    padding: 1rem;
+  }
+  
+  .review-item:hover {
+    background-color: #f9f9f9;
+  }
+  
+  .review-author {
+    font-weight: 600;
+    color: #333;
+    font-size: 1.1rem;
+  }
+  
+  .review-text {
+    color: #555;
+    font-size: 1rem;
+  }
+  
+  /* Star rating styling */
+  .starability-result {
+    display: inline-block;
+    font-size: 1.4rem;
+    color: #ffc107;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2.5rem;
+    }
+    
+    .hero-location {
+      font-size: 1.2rem;
+    }
+    
+    #map {
+      height: 300px;
+      width: 100%;
+    }
+    
+    .location-container .col-md-6 {
+      padding: 1rem !important;
+    }
+    
+    .sticky-sidebar {
+      position: relative;
+      top: 0;
+      margin-bottom: 2rem;
+    }
+  }
+  .badge{
+    background-color: #ff5733 !important;
+  }
+</style>

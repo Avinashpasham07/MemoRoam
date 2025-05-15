@@ -1,0 +1,70 @@
+<% layout('layouts/boilerplate') %>
+<div class="signup-container">
+  <div class="signup-hero">
+    <div class="hero-content">
+      <h1 class="hero-title">Begin Your Journey</h1>
+      <p class="hero-subtitle">Join our community of explorers and unlock exclusive travel experiences.   Memories That Move</p>
+      <div class="scrolling-destinations">
+        <span>Bali</span>
+        <span>Paris</span>
+        <span>Tokyo</span>
+        <span>New York</span>
+        <span>Santorini</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="signup-form-container">
+    <div class="signup-card">
+      <div class="card-header">
+        <h2> Create Account</h2>
+        <p>Start planning your next adventure today</p>
+      </div>
+      
+      <form action="/signup" method="post" class="needs-validation" novalidate>
+        <div class="form-group">
+          <label for="username">
+            <i class="fas fa-user-circle"></i> Username
+          </label>
+          <input type="text" name="username" id="username" 
+                 placeholder="AdventureSeeker42" required>
+          <div class="validation-feedback"></div>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">
+            <i class="fas fa-envelope"></i> Email
+          </label>
+          <input type="email" name="email" id="email" 
+                 placeholder="hello@wanderlust.com" required>
+          <div class="validation-feedback"></div>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">
+            <i class="fas fa-lock"></i> Password
+          </label>
+          <input type="password" name="password" id="password" 
+                 placeholder="••••••••" required>
+          <div class="password-strength">
+            <span class="strength-bar"></span>
+            <span class="strength-bar"></span>
+            <span class="strength-bar"></span>
+          </div>
+        </div>
+        
+        <button type="submit" class="signup-btn">
+          <i class="fas fa-compass"></i> Join Wanderlust
+        </button>
+        <br>
+        <br>
+        <div>
+        <p class="login-link">
+          Already have an account? <a href="/login">Log In</a>
+        </p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
