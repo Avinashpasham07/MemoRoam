@@ -127,10 +127,13 @@ app.use((err, req, res, next) => {
 });
 
 
-app.listen(8080,()=>{
+const server = app.listen(process.env.PORT || 8080, '0.0.0.0', () => {
     console.log('Server is running on port 8080');
 });
 
+// Increase timeout values to handle timeouts and connection resets
+server.keepAliveTimeout = 120000;  // 120 seconds
+server.headersTimeout = 120000;
 
 
 
