@@ -1,64 +1,100 @@
-MemoRoam
-MemoRoam is a modern web application that allows users to explore and manage various types of listings with ease.
-Whether it's for properties, events, or services, MemoRoam provides a smooth experience for both users and admins to create, browse, and book items.
+#  MemoRoam
 
-Features
-Explore Listings – Browse through various available items with details like price, description, and more.
-Create Listings – Admins can add new items with pricing, images, descriptions, and other relevant details.
-Booking System – Allows users to book available items for a specific date or time.
-Smart Search & Filters – Easily find listings using filters like price range, location, or type.
-User Authentication – Sign-up and login system for both users and admins.
-Admin Panel – Admins can manage, edit, and delete listings.
+MemoRoam is a sleek and dynamic web application designed to let users explore, manage, and book various types of listings with ease. Whether it's properties, events, or services, MemoRoam offers a smooth and intuitive platform for both users and administrators.
 
-Tech Stack
+With powerful features like a smart search system, detailed listings, secure bookings, and a robust admin dashboard, MemoRoam simplifies the way people discover and manage opportunities—all in one place.
 
-Frontend: html,css
-Backend: Node.js, Express.js
-Database: MongoDB
-Authentication: JWT for secure user sessions
-Image Storage: Cloudinary or S3 (for image uploads)
+It’s more than just a listing site — it’s a complete solution for showcasing, scheduling, and connecting.
 
-Installation Guide
-Step 1: Clone the Repository
-# Clone the repository
+
+
+ **Live Demo**: [https://memo-roam.onrender.com/listing](https://memo-roam.onrender.com/listing)
+
+---
+
+##  Features
+
+* ** Explore Listings** – Browse through various listings with details like price, description, images, and more.
+* ** Create Listings** – Admins can easily add new listings with complete information.
+* ** Booking System** – Book available items for a specific date or time.
+* ** Smart Search & Filters** – Filter listings by price, location, category, and more.
+* ** User Authentication** – Secure sign-up and login for users and admins using JWT.
+* **🛠 Admin Panel** – Admins can manage, edit, and delete listings.
+
+---
+
+## 🛠 Tech Stack
+
+| Layer             | Technology           |
+| ----------------- | -------------------- |
+| **Frontend**      | HTML, CSS (EJS)      |
+| **Backend**       | Node.js, Express.js  |
+| **Database**      | MongoDB              |
+| **Auth**          | JSON Web Token (JWT) |
+| **Image Storage** | Cloudinary or AWS S3 |
+
+---
+
+## 🚀 Installation Guide
+
+### 1. Clone the Repository
+
+```bash
 git clone https://github.com/Avinashpasham07/MemoRoam.git
 cd MemoRoam
+```
 
-Step 2: Install Backend Dependencies
-# Go to the server directory
+### 2. Install Backend Dependencies
+
+```bash
 cd server
-
-# Install backend dependencies
 npm install
+```
 
-Step 3: Setup Environment Variables
-Create a .env file in the server directory with the following:
+### 3. Setup Environment Variables
 
+Create a `.env` file in the `server/` directory with the following contents:
+
+```env
 MONGODB_URI=your_mongodb_connection_string
 PORT=8080
 JWT_SECRET=your_jwt_secret_key
+```
 
-Step 4: Start the Backend Server
-# Start the backend server
+### 4. Start the Backend Server
 
+```bash
 node app.js
+```
 
 If everything is set up correctly, you should see:
+
+```
 Server is running on port 8080
 Connected to Database
+```
 
- Final Check
- 
-http://localhost:8080/listing
+### 🔗 Final Check
+
+Visit: [http://localhost:8080/listing](http://localhost:8080/listing)
+
+---
+
+## 🤝 Contributing
+
+Pull requests are welcome! For major changes, please open an issue first to discuss what you'd like to change.
+
+---
+
+## 👤 Author
+
+Developed with 💡 by **Avinash Pasham**
+📫 [Connect with me on GitHub](https://github.com/Avinashpasham07)
+
+---
+
+## ⭐ Support
+
+If you like this project, consider giving it a **⭐ star** to support the development!
 
 
-Contributing
-Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
-
-Live Demo : https://memo-roam.onrender.com/listing
-
-
-Contact
-Developed by Avinash Pasham
-
-If you like this project, please ⭐ the repo!
