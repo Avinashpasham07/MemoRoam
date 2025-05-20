@@ -14,12 +14,12 @@ It’s more than just a listing site — it’s a complete solution for showcasi
 
 ##  Features
 
-* ** Explore Listings** – Browse through various listings with details like price, description, images, and more.
-* ** Create Listings** – Admins can easily add new listings with complete information.
-* ** Booking System** – Book available items for a specific date or time.
-* ** Smart Search & Filters** – Filter listings by price, location, category, and more.
-* ** User Authentication** – Secure sign-up and login for users and admins using JWT.
-* **🛠 Admin Panel** – Admins can manage, edit, and delete listings.
+* **Explore Listings** – Browse through various listings with details like price, description, images, and more.
+* **Create Listings** – Admins can easily add new listings with complete information.
+* **Booking System** – Book available items for a specific date or time.
+* **Smart Search & Filters** – Filter listings by price, location, category, and more.
+* **User Authentication** – Secure sign-up and login for users and admins using JWT.
+* **Admin Panel** – Admins can manage, edit, and delete listings.
 
 ---
 
