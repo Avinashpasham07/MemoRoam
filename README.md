@@ -80,21 +80,11 @@ Visit: [http://localhost:8080/listing](http://localhost:8080/listing)
 
 ---
 
-## 🤝 Contributing
-
-Pull requests are welcome! For major changes, please open an issue first to discuss what you'd like to change.
-
----
-
 ## 👤 Author
 
 Developed with 💡 by **Avinash Pasham**
-📫 [Connect with me on GitHub](https://github.com/Avinashpasham07)
+📫 [Connect with me on LinkedIn](https://www.linkedin.com/in/avinashyadavpasham/)
 
----
 
-## ⭐ Support
-
-If you like this project, consider giving it a **⭐ star** to support the development!
 
 
